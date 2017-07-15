@@ -1,0 +1,28 @@
+{
+  "name": "1-johnny-five-blink",
+  "version": "1.0.0",
+  "description": "An application to toggle the state of an LED",
+  "main": "toggle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodebotsau/nodebots-iot-2017.git"
+  },
+  "keywords": [
+    "Nodebots",
+    "IoT",
+    "johnny-five",
+    "led"
+  ],
+  "author": "Julian Pittas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodebotsau/nodebots-iot-2017/issues"
+  },
+  "homepage": "https://github.com/nodebotsau/nodebots-iot-2017#readme",
+  "dependencies": {
+    "johnny-five": "^0.11.3"
+  }
+}

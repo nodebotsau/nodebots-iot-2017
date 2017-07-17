@@ -1,0 +1,309 @@
+[
+    {
+        "id": "66210f92.e60e8",
+        "type": "tab",
+        "label": "LED Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "15694647.af52da",
+        "type": "inject",
+        "z": "66210f92.e60e8",
+        "name": "Turn on",
+        "topic": "led",
+        "payload": "on",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 420,
+        "y": 160,
+        "wires": [
+            [
+                "9ac1837.93cbd8",
+                "23865f61.2a362"
+            ]
+        ]
+    },
+    {
+        "id": "e82df5d9.2fa438",
+        "type": "inject",
+        "z": "66210f92.e60e8",
+        "name": "Turn Off",
+        "topic": "led",
+        "payload": "off",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 420,
+        "y": 260,
+        "wires": [
+            [
+                "9ac1837.93cbd8",
+                "23865f61.2a362"
+            ]
+        ]
+    },
+    {
+        "id": "6736dcad.56fd24",
+        "type": "gpio out",
+        "z": "66210f92.e60e8",
+        "name": "",
+        "state": "OUTPUT",
+        "pin": "13",
+        "i2cDelay": "0",
+        "i2cAddress": "",
+        "i2cRegister": "",
+        "outputs": 0,
+        "board": "9409d4eb.bf0c88",
+        "x": 970,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "311e3678.8958ca",
+        "type": "debug",
+        "z": "66210f92.e60e8",
+        "name": "",
+        "active": true,
+        "console": "true",
+        "complete": "payload",
+        "x": 712,
+        "y": 470,
+        "wires": []
+    },
+    {
+        "id": "24ea0b30.9abbb4",
+        "type": "change",
+        "z": "66210f92.e60e8",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "on",
+                "fromt": "str",
+                "to": "1",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "off",
+                "fromt": "str",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 380,
+        "wires": [
+            [
+                "6736dcad.56fd24"
+            ]
+        ]
+    },
+    {
+        "id": "1952a84c.02d218",
+        "type": "mqtt in",
+        "z": "66210f92.e60e8",
+        "name": "",
+        "topic": "nbd/julianpitt/led",
+        "qos": "0",
+        "broker": "5ef8fefa.a84c3",
+        "x": 420,
+        "y": 449.5,
+        "wires": [
+            [
+                "24ea0b30.9abbb4",
+                "311e3678.8958ca"
+            ]
+        ]
+    },
+    {
+        "id": "9ac1837.93cbd8",
+        "type": "mqtt out",
+        "z": "66210f92.e60e8",
+        "name": "",
+        "topic": "nbd/julianpitt/led",
+        "qos": "0",
+        "retain": "",
+        "broker": "5ef8fefa.a84c3",
+        "x": 669,
+        "y": 195.5,
+        "wires": []
+    },
+    {
+        "id": "7641fd16.81cb64",
+        "type": "ui_switch",
+        "z": "66210f92.e60e8",
+        "name": "",
+        "label": "LED switch",
+        "group": "5462c11.1e2d74",
+        "order": 0,
+        "width": "2",
+        "height": "2",
+        "passthru": true,
+        "decouple": "false",
+        "topic": "jpled",
+        "style": "",
+        "onvalue": "on",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "off",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 410,
+        "y": 80,
+        "wires": [
+            [
+                "9ac1837.93cbd8",
+                "23865f61.2a362"
+            ]
+        ]
+    },
+    {
+        "id": "23865f61.2a362",
+        "type": "debug",
+        "z": "66210f92.e60e8",
+        "name": "",
+        "active": true,
+        "console": "true",
+        "complete": "payload",
+        "x": 664,
+        "y": 116.5,
+        "wires": []
+    },
+    {
+        "id": "99e02215.3f809",
+        "type": "ui_button",
+        "z": "66210f92.e60e8",
+        "name": "",
+        "group": "7015566c.8ad148",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "On",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "on",
+        "payloadType": "str",
+        "topic": "led",
+        "x": 430,
+        "y": 200,
+        "wires": [
+            [
+                "9ac1837.93cbd8",
+                "23865f61.2a362"
+            ]
+        ]
+    },
+    {
+        "id": "47f968bc.539b18",
+        "type": "ui_button",
+        "z": "66210f92.e60e8",
+        "name": "",
+        "group": "7015566c.8ad148",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Off",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "off",
+        "payloadType": "str",
+        "topic": "led",
+        "x": 430,
+        "y": 300,
+        "wires": [
+            [
+                "9ac1837.93cbd8",
+                "23865f61.2a362"
+            ]
+        ]
+    },
+    {
+        "id": "9409d4eb.bf0c88",
+        "type": "nodebot",
+        "z": "",
+        "name": "uno",
+        "username": "",
+        "password": "",
+        "boardType": "firmata",
+        "serialportName": "COM3",
+        "connectionType": "local",
+        "mqttServer": "",
+        "socketServer": "",
+        "pubTopic": "",
+        "subTopic": "",
+        "tcpHost": "",
+        "tcpPort": "",
+        "sparkId": "",
+        "sparkToken": "",
+        "beanId": "",
+        "impId": "",
+        "meshbluServer": "https://meshblu.octoblu.com",
+        "uuid": "",
+        "token": "",
+        "sendUuid": ""
+    },
+    {
+        "id": "5ef8fefa.a84c3",
+        "type": "mqtt-broker",
+        "z": "",
+        "broker": "test.mosquitto.org",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "5462c11.1e2d74",
+        "type": "ui_group",
+        "z": "",
+        "name": "Switch",
+        "tab": "c74855cb.019b48",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "7015566c.8ad148",
+        "type": "ui_group",
+        "z": "",
+        "name": "Buttons",
+        "tab": "c74855cb.019b48",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "c74855cb.019b48",
+        "type": "ui_tab",
+        "z": "",
+        "name": "LED",
+        "icon": "dashboard"
+    }
+]

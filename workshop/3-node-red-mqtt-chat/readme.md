@@ -1,8 +1,9 @@
-# Task 2 - NodeRed Blink
+# Task 3 - NodeRed Message
 
-Well done on getting the LED to blink, that's only the beginning though.
+Now onto the most exciting and useful task, well done on making it this far!
 
-Let's get into creating a real connected device by hooking it up to a public MQTT allowing it to be controlled online.
+We'll now create an IoT messaging system using an LCD screen connected to the arduino to send messages to each other
+The idea is to use the NodeRed Ui panel to fill out a form and send a message over MQTT to an LCD screen
 
 This project was prepared for the Melbourne international nodebots day 2017 and is designed to be run as a stand alone task. Examples and information is based off [this repo](https://github.com/nodebotsau/workshops/tree/master/iot-intro)
 
@@ -12,7 +13,7 @@ This project was prepared for the Melbourne international nodebots day 2017 and 
 - Node version manager
 - Node (v6.9.2)
 - Interchange
-- An LED
+- An LCD
 
 ## Setup
 
@@ -49,20 +50,34 @@ Then Select:
 - Open a terminal in this directory and run `npm install` to install all the project dependencies
 
 ## Task
-Using node red, create a flow to receive an incomming MQTT message and toggle the status of an LED.
+Using node red, create a flow to send and receive an MQTT messages and display them on an LCD.
 
 Use the following MQTT server settings:
 
 - Host: test.mosquitto.org ( or localhost )
 - Port: 1883
-- Topic: nbd/`{something-unique}`/led
+- Topic: nbd/`{something-unique}`/message
 
 Run node red and create a flow with the following components:
-- One MQTT input
+- One Form dashboard
 - One MQTT output
-- One change function
-- Two inject inputs
-- One GPIO output
+- One MQTT input
+- One Johnny Five function
+
+Paste the following into the johnny five function
+```
+var lcd = new five.LCD({
+    // LCD pin name  RS  EN  DB4 DB5 DB6 DB7
+    pins: [7, 8, 9, 10, 11, 12],
+});
+
+node.on("input", function(msg){
+    var payload = JSON.parse(msg.payload);
+    lcd.clear().cursor(0, 0).print(
+	    payload.name
+    );
+});
+```
 
 ## To run
 
@@ -100,12 +115,12 @@ Noting you can change the host parameter to your local mosca server for example.
 Noting again that you can change the host parameter to your local mosca server for example.
 
 ## Solution
-To run the solution, copy the contents of `solution/node-red-led-flow.json`
+To run the solution, copy the contents of `solution/node-red-message-flow.json`
 
 Then in node red:
 - Click on the hamburger menu in the top right corner
 - Hover over `Import`
 - Click on Clipboard
-- Paste the contents of the `node-red-led-flow.js` file
+- Paste the contents of the `node-red-message-flow.js` file
 - Make sure `new flow` is selected
 - Click on the red `Import` button

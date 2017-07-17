@@ -1,0 +1,17 @@
+service: alexa-mqtt-led
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  stage: dev
+  region: us-east-1
+  profile: julian
+
+functions:
+  mqtt-toggle:
+    handler: handler.toggle
+    environment:
+      mqtt: mqtt://test.mosquitto.org
+      topic: nbd/julianpitt/alexa/led
+    events:
+      - alexaSkill

@@ -24,16 +24,18 @@ const handlers = {
     },
     'TurnLedOn': function () {
         // Create speech output
-        toggleLED('on');
-        this.emit(':tellWithCard', this.t('TURNING_LED_ON'), this.t('SKILL_NAME'));
+        toggleLED('on').then(() => {
+            this.emit(':tellWithCard', this.t('TURNING_LED_ON'), this.t('SKILL_NAME'));
+        });
     },
     'TurnLedOffIntent': function () {
       this.emit('TurnLedOff');
     },
     'TurnLedOff': function () {
         // Create speech output
-        toggleLED('off');
-        this.emit(':tellWithCard', this.t('TURNING_LED_OFF'), this.t('SKILL_NAME'));
+        toggleLED('off').then(() => {
+            this.emit(':tellWithCard', this.t('TURNING_LED_OFF'), this.t('SKILL_NAME'));
+        });
     },
     'AMAZON.HelpIntent': function () {
         const speechOutput = this.t('HELP_MESSAGE');
@@ -49,16 +51,19 @@ const handlers = {
 };
 
 const toggleLED = (msg) => {
-    const mqttUrl = process.env['mqtt'];
-    const topic = process.env['topic'];
-    console.log(mqttUrl);
-    console.log(topic);
+    return new Promise((resolve, reject) => {
+        const mqttUrl = process.env['mqtt'];
+        const topic = process.env['topic'];
+        console.log(mqttUrl);
+        console.log(topic);
 
-    var client  = MQTT.connect(mqttUrl);
-    
-    client.on('connect', function () {
-      client.publish(topic, msg);
-      client.end();
+        var client  = MQTT.connect(mqttUrl);
+        
+        client.on('connect', function () {
+            client.publish(topic, msg);
+            client.end();
+            resolve();
+        });
     });
 };
 
